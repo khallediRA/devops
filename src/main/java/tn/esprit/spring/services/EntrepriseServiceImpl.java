@@ -5,15 +5,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import lombok.extern.slf4j.Slf4j;
 import tn.esprit.spring.entities.Departement;
-import tn.esprit.spring.entities.Employe;
 import tn.esprit.spring.entities.Entreprise;
 import tn.esprit.spring.repository.DepartementRepository;
 import tn.esprit.spring.repository.EntrepriseRepository;
 
 @Service
+@Slf4j
 public class EntrepriseServiceImpl implements IEntrepriseService {
 
 	@Autowired
@@ -39,7 +39,7 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 		// Rappel : Dans une relation oneToMany le mappedBy doit etre du cote one.
 		Entreprise entrepriseManagedEntity = entrepriseRepoistory.findById(entrepriseId)
 				.orElseThrow(() -> new RuntimeException("entreprise with cannoot be found "));
-		Departement depManagedEntity = deptRepoistory.findById(depId).get();
+		Departement depManagedEntity = deptRepoistory.findById(depId).orElseThrow(() -> new RuntimeException("cannot find departement id"));
 
 		depManagedEntity.setEntreprise(entrepriseManagedEntity);
 		deptRepoistory.save(depManagedEntity);
@@ -47,7 +47,7 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 	}
 
 	public List<String> getAllDepartementsNamesByEntreprise(int entrepriseId) {
-		Entreprise entrepriseManagedEntity = entrepriseRepoistory.findById(entrepriseId).get();
+		Entreprise entrepriseManagedEntity = entrepriseRepoistory.findById(entrepriseId).orElseThrow(() -> new RuntimeException("cannot find entreprise id"));
 		List<String> depNames = new ArrayList<>();
 		for (Departement dep : entrepriseManagedEntity.getDepartements()) {
 			depNames.add(dep.getName());
@@ -57,7 +57,7 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 	}
 
 	public void deleteEntrepriseById(int entrepriseId) {
-		entrepriseRepoistory.delete(entrepriseRepoistory.findById(entrepriseId).get());
+		entrepriseRepoistory.delete(entrepriseRepoistory.findById(entrepriseId).orElseThrow(() -> new RuntimeException("cannot find entreprise id")));
 	}
 
 	public void deleteDepartementById(int depId) {
