@@ -43,7 +43,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		LOGGER.debug("commencer a chercher id mission");
 		Mission mission = missionRepository.findById(missionId).orElseThrow(() -> new RuntimeException("Mission non trouvé"));
 		LOGGER.debug("commencer a chercher id departement");
-		Departement dep = deptRepoistory.findById(depId).orElseThrow(() -> new RuntimeException("Departement non trouvé"));;
+		Departement dep = deptRepoistory.findById(depId).orElseThrow(() -> new RuntimeException("Departement non trouvé"));
 		LOGGER.debug("update departement");
 		mission.setDepartement(dep);
 		missionRepository.save(mission);
@@ -77,7 +77,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		Mission mission = missionRepository.findById(missionId).orElseThrow(() -> new RuntimeException("Mission non trouvé"));
 		LOGGER.debug("verifier s'il est un chef de departement");
 		if(!validateur.getRole().equals(Role.CHEF_DEPARTEMENT)){
-			System.out.println("l'employe doit etre chef de departement pour valider une feuille de temps !");
+			LOGGER.debug("l'employe doit etre chef de departement pour valider une feuille de temps !");
 			return;
 		}
 		LOGGER.debug("verifier s'il est le chef de departement de la mission en question");
@@ -90,7 +90,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		}
 		if(!chefDeLaMission){
 			LOGGER.info("l'employe n'est pas un chef de la mission");
-			System.out.println("l'employe doit etre chef de departement de la mission en question");
+			LOGGER.debug("l'employe doit etre chef de departement de la mission en question");
 			LOGGER.error("l'employer n'est pas un chef départtement");
 			return;
 			
@@ -103,7 +103,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		
 	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		System.out.println("dateDebut : " + dateFormat.format(timesheet.getTimesheetPK().getDateDebut()));
+		LOGGER.debug("dateDebut : " + dateFormat.format(timesheet.getTimesheetPK().getDateDebut()));
 		LOGGER.info("valider timesheet avec succées ");
 		
 	}
