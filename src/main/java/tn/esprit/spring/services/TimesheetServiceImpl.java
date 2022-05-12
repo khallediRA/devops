@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import tn.esprit.spring.entities.Departement;
 import tn.esprit.spring.entities.Employe;
@@ -42,9 +41,9 @@ public class TimesheetServiceImpl implements ITimesheetService {
 	public void affecterMissionADepartement(int missionId, int depId) {
 		LOGGER.info(" affecter mission a de partement en exécution ");
 		LOGGER.debug("commencer a chercher id mission");
-		Mission mission = missionRepository.findById(missionId).get();
+		Mission mission = missionRepository.findById(missionId).orElseThrow(() -> new RuntimeException("Mission non trouvé"));
 		LOGGER.debug("commencer a chercher id departement");
-		Departement dep = deptRepoistory.findById(depId).get();
+		Departement dep = deptRepoistory.findById(depId).orElseThrow(() -> new RuntimeException("Departement non trouvé"));;
 		LOGGER.debug("update departement");
 		mission.setDepartement(dep);
 		missionRepository.save(mission);
@@ -73,9 +72,9 @@ public class TimesheetServiceImpl implements ITimesheetService {
 	public void validerTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin, int validateurId) {
 		LOGGER.info(" In valider Timesheet ");
 		LOGGER.debug("commencer a chercher id employe validateur");
-		Employe validateur = employeRepository.findById(validateurId).get();
+		Employe validateur = employeRepository.findById(validateurId).orElseThrow(() -> new RuntimeException("Validateur non trouvé"));
 		LOGGER.debug("commencer a chercher id mission");
-		Mission mission = missionRepository.findById(missionId).get();
+		Mission mission = missionRepository.findById(missionId).orElseThrow(() -> new RuntimeException("Mission non trouvé"));
 		LOGGER.debug("verifier s'il est un chef de departement");
 		if(!validateur.getRole().equals(Role.CHEF_DEPARTEMENT)){
 			System.out.println("l'employe doit etre chef de departement pour valider une feuille de temps !");
