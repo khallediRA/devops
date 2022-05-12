@@ -92,11 +92,11 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 	}
 
 	public void deleteDepartementById(int depId) {
-		deptRepoistory.delete(deptRepoistory.findById(depId).get());
+		deptRepoistory.delete(deptRepoistory.findById(depId).orElseThrow(() -> new RuntimeException("cannot delete entreprise ")));
 	}
 
 	public Entreprise getEntrepriseById(int entrepriseId) {
-		return entrepriseRepoistory.findById(entrepriseId).get();
+		return entrepriseRepoistory.findById(entrepriseId).orElseThrow(() -> new RuntimeException("cannot get entreprise "));
 	}
 
 }
