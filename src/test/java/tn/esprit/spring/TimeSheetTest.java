@@ -1,13 +1,15 @@
 package tn.esprit.spring;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Date;
 import java.util.List;
 
 import org.aspectj.lang.annotation.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +41,7 @@ import tn.esprit.spring.services.TimesheetServiceImpl;
 	Mission mission;
 	Employe employe;
 
-	@Before(value = "INI")
+	@BeforeEach()
 	void initializeInstance() {
 		LOGGER.info("Starting Tests on Timesheet");
 
@@ -76,7 +78,7 @@ import tn.esprit.spring.services.TimesheetServiceImpl;
 		
 		if (pk!=null) {
 			LOGGER.info("Timesheet persisté avec succès");
-			assertTrue(true);
+			assertNotNull(pk);
 		}
 		else {
 			LOGGER.error("Persistence problem for timesheet");
@@ -94,8 +96,11 @@ import tn.esprit.spring.services.TimesheetServiceImpl;
 		}
 		else {
 			LOGGER.info("Employee "+employe.getNom()+" is currently affected to these missions : ");
-			missions.forEach( mission1 -> LOGGER.info(mission.getName()));
-			assertTrue(true);
+			missions.forEach( mission1 -> {
+				assertNotNull(mission1);
+				LOGGER.info(mission.getName());
+			});
+			;
 		}
 	}
 
