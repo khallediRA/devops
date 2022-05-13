@@ -51,7 +51,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		
 	}
 
-	public void ajouterTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin) {
+	public Timesheet ajouterTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin) {
 		LOGGER.info(" Debut ajouterTimesheet ");
 		TimesheetPK timesheetPK = new TimesheetPK();
 		timesheetPK.setDateDebut(dateDebut);
@@ -63,8 +63,10 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		Timesheet timesheet = new Timesheet();
 		timesheet.setTimesheetPK(timesheetPK);
 		timesheet.setValide(false); 
-		timesheetRepository.save(timesheet);
 		LOGGER.info(" timesheet ajouter avec succées");
+		return timesheetRepository.save(timesheet);
+		
+		
 		
 	}
 
