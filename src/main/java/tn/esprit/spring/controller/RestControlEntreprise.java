@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,13 +29,14 @@ public class RestControlEntreprise {
 	ITimesheetService itimesheetservice;
 	
 	// Ajouter Entreprise : http://localhost:8081/SpringMVC/servlet/ajouterEntreprise
-	//{"id":1,"name":"SSII Consulting","raisonSocial":"Cite El Ghazela"}
 
 	@PostMapping("/ajouterEntreprise")
 	@ResponseBody
-	public int ajouterEntreprise(@RequestBody Entreprise ssiiConsulting) {
-		ientrepriseservice.ajouterEntreprise(ssiiConsulting);
-		return ssiiConsulting.getId();
+	public int ajouterEntreprise(@RequestParam String entrepriseName) {
+		Entreprise entreprise = new Entreprise();
+		entreprise.setName(entrepriseName);
+		return ientrepriseservice.ajouterEntreprise(entreprise);
+		
 	}
 	
 	// http://localhost:8081/SpringMVC/servlet/affecterDepartementAEntreprise/1/1
@@ -69,12 +70,13 @@ public class RestControlEntreprise {
 	}
     
     // http://localhost:8081/SpringMVC/servlet/ajouterDepartement
- 	//{"id":1,"name":"Telecom"}
 
  	@PostMapping("/ajouterDepartement")
  	@ResponseBody
-	public int ajouterDepartement(@RequestBody Departement dep) {
-		return ientrepriseservice.ajouterDepartement(dep);
+	public int ajouterDepartement(@RequestParam String dep) {
+		Departement departement = new Departement();
+		departement.setName(dep);
+		return ientrepriseservice.ajouterDepartement(departement);
 	}
 	
  	 // http://localhost:8081/SpringMVC/servlet/getAllDepartementsNamesByEntreprise/1
