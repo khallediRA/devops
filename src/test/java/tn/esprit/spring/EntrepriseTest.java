@@ -16,7 +16,7 @@ import tn.esprit.spring.repository.EntrepriseRepository;
 import tn.esprit.spring.services.EntrepriseServiceImpl;
 
 @SpringBootTest
-class DepartementTest {
+class EntrepriseTest {
 
 	@Autowired
 	EntrepriseServiceImpl entrepriseService;
