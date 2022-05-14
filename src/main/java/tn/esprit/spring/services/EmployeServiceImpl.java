@@ -24,7 +24,7 @@ import tn.esprit.spring.repository.TimesheetRepository;
 
 @Service
 public class EmployeServiceImpl implements IEmployeService {
-	private static final Logger log = LoggerFactory.getLogger(EntrepriseServiceImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(EmployeServiceImpl.class);
 
 	@Autowired
 	EmployeRepository employeRepository;

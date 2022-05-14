@@ -61,7 +61,7 @@ import tn.esprit.spring.services.TimesheetServiceImpl;
 	}
 	
 	@Test
-	public void addTimesheetTest() {
+	void addTimesheetTest() {
 		LOGGER.info("Starting Tests on Timesheet");
 		LOGGER.info("Persisting Instances");
 
@@ -84,7 +84,7 @@ import tn.esprit.spring.services.TimesheetServiceImpl;
 	}
 
 	@Test
-	public void testFindMissionsByEmploye() {
+	void testFindMissionsByEmploye() {
 		LOGGER.info("Testing findAllMissionByEmployeJPQL Function");
 		LOGGER.info("Fetching Missions for Employee " +employe.getNom()+ " Having ID = "+employe.getId());
 		List<Mission> missions = timesheetService.findAllMissionByEmployeJPQL(employe.getId());

@@ -105,7 +105,8 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		
 	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		LOGGER.debug("dateDebut : " + dateFormat.format(timesheet.getTimesheetPK().getDateDebut()));
+		String  message = "dateDebut : " + dateFormat.format(timesheet.getTimesheetPK().getDateDebut());
+		LOGGER.debug(message);
 		LOGGER.info("valider timesheet avec succées ");
 		
 	}
